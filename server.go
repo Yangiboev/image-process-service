@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func generateURL() []string {
@@ -86,5 +87,10 @@ func upload(fileName string, body io.Reader) {
 }
 
 func main() {
+	start := time.Now()
+	defer func() {
+		fmt.Printf("took %v\n", time.Since(start))
+	}()
+
 	processImage()
 }
