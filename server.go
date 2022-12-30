@@ -7,7 +7,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -27,14 +26,14 @@ func generateURL() []string {
 }
 
 func processImage() {
-	for _, image := range generateURL() {
+	for index, image := range generateURL() {
 		res, err := http.Get(image)
 
 		if err != nil {
 			log.Fatalf("http.Get -> %v", err)
 		}
 
-		upload(image+format(image), res.Body)
+		upload(fmt.Sprintf("%d.test.%s", index, format(image)), res.Body)
 	}
 	log.Println("I saved your image buddy!")
 }
@@ -78,7 +77,7 @@ func upload(fileName string, body io.Reader) {
 		log.Println(err)
 	}
 	defer res.Body.Close()
-	response, err := ioutil.ReadAll(res.Body)
+	response, err := io.ReadAll(res.Body)
 	if err != nil {
 		log.Println(err)
 	}
