@@ -1,4 +1,4 @@
-module github.com/Yangiboev/imagor-test
+module github.com/Yangiboev/image-process-service
 
 go 1.19
 
